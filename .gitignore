@@ -186,3 +186,4 @@ fabric.properties
 pg_data
 .env
 test_pg_data
+.idea

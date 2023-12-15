@@ -1,0 +1,29 @@
+version: "3.3"
+services:
+  test_db:
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
+    image: libray_db_test
+    environment:
+      - DATABASE_HOST=test_db
+    restart: always
+    env_file: .env
+    volumes:
+      - ./test_pg_data:/var/lib/postgresql/data
+    ports:
+      - "5436:5432"
+
+  test_backend:
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+    image: library_backend_test
+    restart: always
+    env_file: .env
+    environment:
+      - DATABASE_HOST=test_db
+    volumes:
+      - ./backend:/backend
+    depends_on:
+      - test_db

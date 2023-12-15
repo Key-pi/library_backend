@@ -1,0 +1,4 @@
+aiohttp[all]
+sqlalchemy
+psycopg2
+aiofiles

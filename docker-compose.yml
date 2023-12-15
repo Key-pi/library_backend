@@ -1,0 +1,30 @@
+version: '3'
+services:
+  db:
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
+    image: library_db:latest
+    restart: always
+    env_file: .env
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+    ports:
+      - "5439:5432"
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+    image: library_backend:latest
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    working_dir: /backend
+    volumes:
+      - ./backend:/backend
+

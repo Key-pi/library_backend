@@ -25,5 +25,12 @@ else
   cat example.env > .env
 fi
 
+if [ -d backend/uploads/books ]; then
+  echo "${green}backend/uploads/books directory exists ${reset}"
+else
+  echo "${red}backend/uploads/books directory not found. ${green}Creating it now${reset}."
+  mkdir -p backend/uploads/books
+fi
+
 echo "${green}Start building images... ${reset}"
 docker-compose build
